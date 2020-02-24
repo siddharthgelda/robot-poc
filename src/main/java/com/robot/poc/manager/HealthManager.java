@@ -18,12 +18,13 @@ public class HealthManager implements Observer {
         distanceInput = aDistanceInput;
         weightInput = aWeightInput;
     }
-public HealthManager()
-{
-    super();
-    distanceInput = 0.0;
-    weightInput = 0.0;
-}
+
+    public HealthManager() {
+        super();
+        distanceInput = 0.0;
+        weightInput = 0.0;
+    }
+
     /**
      * @return the distanceInput
      */

@@ -9,10 +9,7 @@ import java.util.ArrayList;
 
 @Service
 public class Robot implements Subject {
-    // Predefined max strength of robot
-    private static final Double MAX_ROBOT_STRENGTH = 5.0;
-    // Predefined max load threshold attain by robot
-    private static final Double MAX_ROBOT_LOAD_THRESHOLD = 10.0;
+
     private static boolean OVERWEIGHT_INDICATOR = false;
     private static boolean LOW_BATTERY = false;
     String consumptionMsg;
@@ -41,8 +38,8 @@ public class Robot implements Subject {
      */
     public void consumption() {
         try {
-            double unitPercentileStrength = strength / MAX_ROBOT_STRENGTH;
-            for (Observer ob : observers) {
+            double unitPercentileStrength = strength / ApplicationContants.MAX_ROBOT_STRENGTH;
+            observers.stream().forEach(ob -> {
                 // System.out.println("Distance " + ob.getDistanceInput());
                 // System.out.println("Weight " + ob.getWeightInput());
 
@@ -53,16 +50,16 @@ public class Robot implements Subject {
                     if (distance != 0.0) {
                         double result = unitPercentileStrength * distance;
                         strength = strength - result;
-                        if (strength <= 15.0) {
+                        if (strength <= ApplicationContants.INDICATING_LOW_BATTERY) {
                             LOW_BATTERY = true;
 
                         }
                     }
-                    if (weight > 10.0 && !LOW_BATTERY) {
+                    if (weight > ApplicationContants.MAX_ROBOT_LOAD_THRESHOLD && !LOW_BATTERY) {
                         OVERWEIGHT_INDICATOR = true;
 
                     } else {
-                        strength = strength - (2 * weight);
+                        strength = strength - (ApplicationContants.KILOGRAM_CARRIED_BATTERY_CONSUMED * weight);
                     }
 
                     notifyObservers(ob, strength.toString(), LOW_BATTERY, OVERWEIGHT_INDICATOR);
@@ -72,10 +69,10 @@ public class Robot implements Subject {
                 }
 
                 // ob.getMessages(this.consumptionMsg);
-                strength = 100.0;
+               /* strength = 100.0;
                 LOW_BATTERY = false;
-                OVERWEIGHT_INDICATOR = false;
-            }
+                OVERWEIGHT_INDICATOR = false;*/
+            });
 
         } catch (Exception e) {
             System.out.println(ApplicationContants.INPUT_NAN_KEY);
