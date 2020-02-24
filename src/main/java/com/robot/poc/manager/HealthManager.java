@@ -73,20 +73,20 @@ public HealthManager()
      */
     public String getMessages(String msg) {
         if (msg.equalsIgnoreCase(ApplicationContants.LOW_BATTERY)) {
-            System.out.println(ApplicationContants.LOW_BATTERY_MSG);
-            setMsgPortlet(ApplicationContants.LOW_BATTERY_MSG);
+            System.out.println(ApplicationContants.LOW_BATTERY_MESSAGE);
+            setMsgPortlet(ApplicationContants.LOW_BATTERY_MESSAGE);
         }
         if (msg.equalsIgnoreCase(ApplicationContants.OVER_WEIGHT)) {
-            System.out.println(ApplicationContants.OVER_WEIGHT_MSG);
-            setMsgPortlet(ApplicationContants.OVER_WEIGHT_MSG);
+            System.out.println(ApplicationContants.OVER_WEIGHT_MESSAGE);
+            setMsgPortlet(ApplicationContants.OVER_WEIGHT_MESSAGE);
         }
 
         if (!msg.equalsIgnoreCase(ApplicationContants.LOW_BATTERY)
                 && !msg.equalsIgnoreCase(ApplicationContants.OVER_WEIGHT)) {
             System.out.println(ApplicationContants.DISTANCE_KEY + distanceInput + ApplicationContants.WEIGHT_KEY
-                    + weightInput + ApplicationContants.APPLIED_KEY + msg + ApplicationContants.REST_PART_MSG_KEY);
+                    + weightInput + ApplicationContants.APPLIED_KEY + msg + ApplicationContants.REST_PART_MESSAGE_KEY);
             setMsgPortlet(ApplicationContants.DISTANCE_KEY + distanceInput + ApplicationContants.WEIGHT_KEY
-                    + weightInput + ApplicationContants.APPLIED_KEY + msg + ApplicationContants.REST_PART_MSG_KEY);
+                    + weightInput + ApplicationContants.APPLIED_KEY + msg + ApplicationContants.REST_PART_MESSAGE_KEY);
         }
         return msg;
     }
