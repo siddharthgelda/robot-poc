@@ -1,5 +1,7 @@
 package com.robot.poc.dto;
-
+/*
+@author Siddharth Gelda
+ */
 public interface Subject {
     public void registerObserver(Observer observer);
 
