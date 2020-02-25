@@ -38,8 +38,7 @@ class PocApplicationTests {
         robot.registerObserver(EfficiencyHealthManager);
         robot.registerObserver(loadHealthManager);
         robot.registerObserver(barCodeFailerHealthManager);
-        // kickoff to notifying messages on console for all the above mention 3 cases.
-        // Per requirement increase the no of cases by simply registering the Observer.
+
         robot.consumption();
     }
 

@@ -89,6 +89,7 @@ public class Robot implements Subject {
             });
 
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             System.out.println(ApplicationContants.INPUT_NAN_KEY);
         }
 
@@ -181,8 +182,8 @@ public class Robot implements Subject {
         }
         if (!barcodereaderIndicator) {
             ob.getMessages(ApplicationContants.BARCODE_FAILER);
-        } else if(price!=null){
-            System.out.println("Barcode price is "+price);
+        } else if (price != null) {
+            System.out.println("Barcode price is " + price);
         }
         System.out.println("-----------------Message From Robot END----------------");
         return msg;

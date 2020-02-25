@@ -118,7 +118,7 @@ public class HealthManager implements Observer {
         }
 
         if (!msg.equalsIgnoreCase(ApplicationContants.LOW_BATTERY)
-                && !msg.equalsIgnoreCase(ApplicationContants.OVER_WEIGHT)) {
+                && !msg.equalsIgnoreCase(ApplicationContants.OVER_WEIGHT) && !msg.equalsIgnoreCase(ApplicationContants.BARCODE_FAILER)) {
             System.out.println(ApplicationContants.DISTANCE_KEY + distanceInput + ApplicationContants.WEIGHT_KEY
                     + weightInput + ApplicationContants.APPLIED_KEY + msg + ApplicationContants.REST_PART_MESSAGE_KEY);
             setRobotMessage(ApplicationContants.DISTANCE_KEY + distanceInput + ApplicationContants.WEIGHT_KEY
