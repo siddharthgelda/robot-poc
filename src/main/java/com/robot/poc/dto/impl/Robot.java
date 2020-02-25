@@ -6,6 +6,7 @@ import com.robot.poc.dto.Subject;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+
 /*
 @author Siddharth Gelda
  */
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 public class Robot implements Subject {
 
     private static boolean OVERWEIGHT_INDICATOR = false;
+    private static boolean BARCODEREADER_INDICATOR = true;
     private static boolean LOW_BATTERY = false;
     String consumptionMsg;
     private ArrayList<Observer> observers = new ArrayList<Observer>();
@@ -47,14 +49,22 @@ public class Robot implements Subject {
 
                 double distance = ob.getDistanceInput();
                 double weight = ob.getWeightInput();
-
+                Double price = null;
                 if (null != ob.getDistanceInput() && null != ob.getWeightInput()) {
+
+                    if (ob.getBarcode() != null) {
+                        try {
+                            price = Double.parseDouble(ob.getBarcode());
+                        } catch (NumberFormatException e) {
+                            BARCODEREADER_INDICATOR = false;
+                        }
+                    }
                     if (distance != 0.0) {
                         double result = unitPercentileStrength * distance;
                         strength = strength - result;
-                        if (strength <= ApplicationContants.INDICATING_LOW_BATTERY) {
+                      /*  if (strength <= ApplicationContants.INDICATING_LOW_BATTERY) {
                             LOW_BATTERY = true;
-                        }
+                        }*/
                     }
                     if (weight > ApplicationContants.MAX_ROBOT_LOAD_THRESHOLD && !LOW_BATTERY) {
                         OVERWEIGHT_INDICATOR = true;
@@ -66,7 +76,7 @@ public class Robot implements Subject {
                         }
                     }
 
-                    notifyObservers(ob, strength.toString(), LOW_BATTERY, OVERWEIGHT_INDICATOR);
+                    notifyObservers(ob, strength.toString(), LOW_BATTERY, OVERWEIGHT_INDICATOR, BARCODEREADER_INDICATOR, price);
 
                     // System.out.println("Result" + strength);
 
@@ -157,8 +167,8 @@ public class Robot implements Subject {
      * Notifying to all the subscribers and publish the messages
      */
     @Override
-    public String notifyObservers(Observer ob, String msg, boolean lb, boolean ow) {
-
+    public String notifyObservers(Observer ob, String msg, boolean lb, boolean ow, boolean barcodereaderIndicator, Double price) {
+        System.out.println("-----------------Message From Robot Start----------------");
         if (lb) {
             ob.getMessages(ApplicationContants.LOW_BATTERY);
         }
@@ -169,8 +179,14 @@ public class Robot implements Subject {
         if (!lb && !ow) {
             ob.getMessages(msg);
         }
-
+        if (!barcodereaderIndicator) {
+            ob.getMessages(ApplicationContants.BARCODE_FAILER);
+        } else if(price!=null){
+            System.out.println("Barcode price is "+price);
+        }
+        System.out.println("-----------------Message From Robot END----------------");
         return msg;
 
     }
+
 }

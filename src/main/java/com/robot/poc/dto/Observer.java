@@ -1,4 +1,5 @@
 package com.robot.poc.dto;
+
 /*
 @author Siddharth Gelda
  */
@@ -8,4 +9,6 @@ public interface Observer {
     public Double getDistanceInput();
 
     public Double getWeightInput();
+
+    public String getBarcode();
 }

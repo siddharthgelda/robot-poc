@@ -12,21 +12,31 @@ import org.springframework.stereotype.Service;
 public class HealthManager implements Observer {
     private Double distanceInput;
     private Double weightInput;
-    private String robotMeesage;
+    private String robotMessage;
     private Color color;
+    private String barcode;
+
+    public HealthManager(Double aDistanceInput, Double aWeightInput, String barcode) throws Exception {
+        super();
+        distanceInput = aDistanceInput;
+        weightInput = aWeightInput;
+        color = Color.GREEN;
+        this.barcode = barcode;
+    }
 
     public HealthManager(Double aDistanceInput, Double aWeightInput) throws Exception {
         super();
         distanceInput = aDistanceInput;
         weightInput = aWeightInput;
-        color=Color.GREEN;
+        color = Color.GREEN;
+
     }
 
     public HealthManager() {
         super();
         distanceInput = 0.0;
         weightInput = 0.0;
-        color=Color.GREEN;
+        color = Color.GREEN;
     }
 
     /**
@@ -60,15 +70,15 @@ public class HealthManager implements Observer {
     /**
      * @return the msgPortlet
      */
-    public String getRobotMeesage() {
-        return robotMeesage;
+    public String getRobotMessage() {
+        return robotMessage;
     }
 
     /**
      * @param msg the msgPortlet to set
      */
     public void setRobotMessage(String msg) {
-        robotMeesage = msg;
+        robotMessage = msg;
     }
 
     public Color getColor() {
@@ -79,13 +89,24 @@ public class HealthManager implements Observer {
         this.color = color;
     }
 
+    @Override
+    public String getBarcode() {
+        return barcode;
+    }
+
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
+    }
+
     /**
      * displaying the messages or alerts based on the msg attributes retrieve from the notifier subject
      *
      * @param msg
      */
     public String getMessages(String msg) {
+
         if (msg.equalsIgnoreCase(ApplicationContants.LOW_BATTERY)) {
+
             System.out.println(ApplicationContants.LOW_BATTERY_MESSAGE);
             setRobotMessage(ApplicationContants.LOW_BATTERY_MESSAGE);
             setColor(Color.RED);
@@ -102,6 +123,10 @@ public class HealthManager implements Observer {
                     + weightInput + ApplicationContants.APPLIED_KEY + msg + ApplicationContants.REST_PART_MESSAGE_KEY);
             setRobotMessage(ApplicationContants.DISTANCE_KEY + distanceInput + ApplicationContants.WEIGHT_KEY
                     + weightInput + ApplicationContants.APPLIED_KEY + msg + ApplicationContants.REST_PART_MESSAGE_KEY);
+        }
+        if (msg.equalsIgnoreCase(ApplicationContants.BARCODE_FAILER)) {
+            System.out.println(ApplicationContants.BARCODE_FAILER);
+            setRobotMessage(ApplicationContants.BARCODE_FAILER);
         }
         return msg;
     }

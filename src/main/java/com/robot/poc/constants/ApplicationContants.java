@@ -1,4 +1,5 @@
 package com.robot.poc.constants;
+
 /*
 @author Siddharth Gelda
  */
@@ -18,4 +19,5 @@ public class ApplicationContants {
     public static final int KILOGRAM_CARRIED_BATTERY_CONSUMED = 2;
     public static final Double INDICATING_LOW_BATTERY = 15.0;
 
+    public static final String BARCODE_FAILER = "Scan Failure";
 }
