@@ -52,7 +52,6 @@ public class Robot implements Subject {
                         strength = strength - result;
                         if (strength <= ApplicationContants.INDICATING_LOW_BATTERY) {
                             LOW_BATTERY = true;
-
                         }
                     }
                     if (weight > ApplicationContants.MAX_ROBOT_LOAD_THRESHOLD && !LOW_BATTERY) {
@@ -60,6 +59,9 @@ public class Robot implements Subject {
 
                     } else {
                         strength = strength - (ApplicationContants.KILOGRAM_CARRIED_BATTERY_CONSUMED * weight);
+                        if (strength <= ApplicationContants.INDICATING_LOW_BATTERY) {
+                            LOW_BATTERY = true;
+                        }
                     }
 
                     notifyObservers(ob, strength.toString(), LOW_BATTERY, OVERWEIGHT_INDICATOR);
